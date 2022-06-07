@@ -27,6 +27,8 @@ class UpdateCustomerUseCase {
       )
     );
 
+    await this.customerRepository.update(customer);
+
     return {
       id: customer.id,
       name: customer.name,

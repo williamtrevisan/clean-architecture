@@ -1,9 +1,9 @@
 import { Sequelize } from "sequelize-typescript";
-import { ExclusionConstraintError } from "sequelize/types";
 
 import { ProductModel } from "../../../infrastructure/product/db/sequelize/product.model";
 import { ProductRepository } from "../../../infrastructure/product/repository/sequelize/product.repository";
 import { CreateProductUseCase } from "../create/create.product.usecase";
+import { UpdateProductUseCase } from "./update.product.usecase";
 
 describe("List product use case integration test", () => {
   let sequelize: Sequelize;
@@ -35,7 +35,7 @@ describe("List product use case integration test", () => {
       });
 
       const updateProductUseCase = new UpdateProductUseCase(productRepository);
-      const productUpdated = await updateProductUseCase({
+      const productUpdated = await updateProductUseCase.execute({
         id: product.id,
         name: "Product name updated",
         price: 30,
