@@ -16,4 +16,4 @@ interface OutputListCustomerDTO {
   customers: Customer[];
 }
 
-export { InputListCustomerDTO, OutputListCustomerDTO };
+export { Customer, InputListCustomerDTO, OutputListCustomerDTO };

@@ -1,5 +1,6 @@
 import { CustomerFactory } from "../../../domain/customer/factory/customer.factory";
 import { Address } from "../../../domain/customer/value_object/address";
+import { ListCustomerUseCase } from "./list.customer.usecase";
 
 const customer1 = CustomerFactory.createWithAddressAndActive(
   "Customer name 1",
@@ -27,6 +28,12 @@ describe("List customer use case unit test", () => {
     const listCustomerUseCase = new ListCustomerUseCase(customerRepository);
     const response = await listCustomerUseCase.execute({});
 
-    expect(response).toEqual([customer1, customer2]);
+    expect(response.customers.length).toBe(2);
+    expect(response.customers[0].id).toBe(customer1.id);
+    expect(response.customers[0].name).toBe(customer1.name);
+    expect(response.customers[0].address.street).toBe(customer1.address.street);
+    expect(response.customers[1].id).toBe(customer2.id);
+    expect(response.customers[1].name).toBe(customer2.name);
+    expect(response.customers[1].address.street).toBe(customer2.address.street);
   });
 });
