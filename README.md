@@ -2,11 +2,11 @@
 
 ```bash
 # Clonar repositório
-git clone https://github.com/williamtrevisan/ddd-patterns.git
-git clone git@github.com:williamtrevisan/challenge-docker-nginx-and-nodejs.git
+git clone https://github.com/williamtrevisan/clean-architecture.git
+git clone git@github.com:williamtrevisan/clean-architecture.git
 
 # Entrar na pasta do projeto
-cd ddd-patterns
+cd clean-architecture
 
 # Instalar dependências
 npm install
