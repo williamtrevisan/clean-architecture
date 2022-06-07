@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
-import { CreateCustomerUseCase } from "../../../../usecase/customer/create/create.customer.usecase";
-import { CustomerRepository } from "../../../customer/repository/sequelize/customer.repository";
+import { CreateCustomerUseCase } from "../../../../../usecase/customer/create/create.customer.usecase";
+import { CustomerRepository } from "../../../../customer/repository/sequelize/customer.repository";
 
 class CreateCustomerController {
   async handle(request: Request, response: Response): Promise<Response> {

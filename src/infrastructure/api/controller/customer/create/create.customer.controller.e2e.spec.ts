@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import request from "supertest";
 
-import { app, sequelize } from "../../express";
+import { app, sequelize } from "../../../express";
 
 describe("E2E test for customer", () => {
   beforeEach(async () => {
