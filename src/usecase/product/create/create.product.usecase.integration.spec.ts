@@ -1,21 +1,35 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Sequelize } from "sequelize-typescript";
+
+import { ProductModel } from "../../../infrastructure/product/db/sequelize/product.model";
+import { ProductRepository } from "../../../infrastructure/product/repository/sequelize/product.repository";
+
 const input = {
   name: "Product name",
   price: 10.0,
 };
 
-const productMockRepository = () => {
-  return {
-    create: jest.fn(),
-    update: jest.fn(),
-    find: jest.fn(),
-    findAll: jest.fn(),
-  };
-};
+describe("Create product use case integration test", () => {
+  let sequelize: Sequelize;
 
-describe("Create product use case unit test", () => {
+  beforeEach(async () => {
+    sequelize = new Sequelize({
+      dialect: "sqlite",
+      storage: ":memory:",
+      logging: false,
+      sync: { force: true },
+    });
+
+    sequelize.addModels([ProductModel]);
+
+    await sequelize.sync();
+  });
+
+  afterEach(async () => {
+    await sequelize.close();
+  });
+
   it("should create a new product", async () => {
-    const productRepository = productMockRepository();
+    const productRepository = new ProductRepository();
 
     const createProductUseCase = new CreateProductUseCase(productRepository);
     const response = await createProductUseCase.execute(input);
@@ -29,7 +43,7 @@ describe("Create product use case unit test", () => {
 
   it("should throw an error when name is missing", async () => {
     expect(async () => {
-      const productRepository = productMockRepository();
+      const productRepository = new ProductRepository();
 
       const createProductUseCase = new CreateProductUseCase(productRepository);
       input.name = "";
@@ -39,7 +53,7 @@ describe("Create product use case unit test", () => {
 
   it("should throw an error when price is missing", async () => {
     expect(async () => {
-      const productRepository = productMockRepository();
+      const productRepository = new ProductRepository();
 
       const createProductUseCase = new CreateProductUseCase(productRepository);
       input.name = "Product name";
