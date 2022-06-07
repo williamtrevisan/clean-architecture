@@ -4,6 +4,7 @@ import { CustomerFactory } from "../../../domain/customer/factory/customer.facto
 import { Address } from "../../../domain/customer/value_object/address";
 import { CustomerModel } from "../../../infrastructure/customer/db/sequelize/customer.model";
 import { CustomerRepository } from "../../../infrastructure/customer/repository/sequelize/customer.repository";
+import { FindCustomerUseCase } from "./find.customer.usecase";
 
 describe("Find customer use case integration test", () => {
   let sequelize: Sequelize;
@@ -30,8 +31,8 @@ describe("Find customer use case integration test", () => {
       "John",
       new Address("Street name", 1, "zipcode", "City name")
     );
-    const costumerRepository = new CustomerRepository();
-    await costumerRepository.create(customer);
+    const customerRepository = new CustomerRepository();
+    await customerRepository.create(customer);
     const input = { id: customer.id };
     const output = {
       id: customer.id,
@@ -44,8 +45,8 @@ describe("Find customer use case integration test", () => {
       },
     };
 
-    const findCustomerUseCase = new FindCustomerUseCase(CustomerRepository);
-    const outputResponse = findCustomerUseCase.execute(input);
+    const findCustomerUseCase = new FindCustomerUseCase(customerRepository);
+    const outputResponse = await findCustomerUseCase.execute(input);
 
     expect(outputResponse).toEqual(output);
   });
