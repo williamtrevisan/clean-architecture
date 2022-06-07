@@ -10,7 +10,7 @@ interface OutputFindCustomerDTO {
     number: number;
     zip: string;
     city: string;
-  }
+  };
 }
 
 export { InputFindCustomerDTO, OutputFindCustomerDTO };
