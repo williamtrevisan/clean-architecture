@@ -18,7 +18,6 @@ class CreateCustomerUseCase {
   ): Promise<OutputCreateCustomerDTO> {
     const customer = CustomerFactory.createWithAddressAndActive(
       input.name,
-
       new Address(
         input.address.street,
         input.address.number,

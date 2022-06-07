@@ -37,4 +37,77 @@ describe("Create customer use case unit test", () => {
       },
     });
   });
+
+  it("should throw an error when name is missing", async () => {
+    expect(async () => {
+      const customerRepository = customerMockRepository();
+
+      const createCustomerUseCase = new CreateCustomerUseCase(
+        customerRepository
+      );
+      input.name = "";
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const outputResponse = await createCustomerUseCase.execute(input);
+    }).rejects.toThrow("Name is required.");
+  });
+
+  it("should throw an error when street is missing", async () => {
+    expect(async () => {
+      const customerRepository = customerMockRepository();
+
+      const createCustomerUseCase = new CreateCustomerUseCase(
+        customerRepository
+      );
+      input.address.street = "";
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const outputResponse = await createCustomerUseCase.execute(input);
+    }).rejects.toThrow("Street is required.");
+  });
+
+  it("should throw an error when number is missing", async () => {
+    expect(async () => {
+      const customerRepository = customerMockRepository();
+
+      const createCustomerUseCase = new CreateCustomerUseCase(
+        customerRepository
+      );
+      input.address.street = "Street name";
+      input.address.number = null;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const outputResponse = await createCustomerUseCase.execute(input);
+    }).rejects.toThrow("Number is required.");
+  });
+
+  it("should throw an error when zip is missing", async () => {
+    expect(async () => {
+      const customerRepository = customerMockRepository();
+
+      const createCustomerUseCase = new CreateCustomerUseCase(
+        customerRepository
+      );
+      input.name = "John";
+      input.address.street = "Street name";
+      input.address.number = 1;
+      input.address.zip = "";
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const outputResponse = await createCustomerUseCase.execute(input);
+    }).rejects.toThrow("Zip is required.");
+  });
+
+  it("should throw an error when city is missing", async () => {
+    expect(async () => {
+      const customerRepository = customerMockRepository();
+
+      const createCustomerUseCase = new CreateCustomerUseCase(
+        customerRepository
+      );
+      input.name = "John";
+      input.address.street = "Street name";
+      input.address.number = 1;
+      input.address.zip = "95700-000";
+      input.address.city = "";
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const outputResponse = await createCustomerUseCase.execute(input);
+    }).rejects.toThrow("City is required.");
+  });
 });
