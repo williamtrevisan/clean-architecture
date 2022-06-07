@@ -1,6 +1,7 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import request from "supertest";
 
-import { app, sequelize } from "../express";
+import { app, sequelize } from "../../express";
 
 describe("E2E test for customer", () => {
   beforeEach(async () => {
@@ -13,7 +14,7 @@ describe("E2E test for customer", () => {
 
   it("should create a customer", async () => {
     const response = await request(app)
-      .post("/customer")
+      .post("/customers")
       .send({
         name: "Customer name",
         address: {
@@ -24,7 +25,7 @@ describe("E2E test for customer", () => {
         },
       });
 
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(201);
     expect(response.body.name).toBe("Customer name");
     expect(response.body.address.street).toBe("Street name");
     expect(response.body.address.number).toBe(1);
