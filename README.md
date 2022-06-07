@@ -6,7 +6,7 @@ git clone https://github.com/williamtrevisan/clean-architecture.git
 git clone git@github.com:williamtrevisan/clean-architecture.git
 
 # Entrar na pasta do projeto
-cd ddd-patterns
+cd clean-architecture
 
 # Instalar dependências
 npm install
