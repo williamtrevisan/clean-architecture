@@ -2,6 +2,8 @@ import { Sequelize } from "sequelize-typescript";
 
 import { ProductModel } from "../../../infrastructure/product/db/sequelize/product.model";
 import { ProductRepository } from "../../../infrastructure/product/repository/sequelize/product.repository";
+import { CreateProductUseCase } from "../create/create.product.usecase";
+import { ListProductUseCase } from "./list.product.usecase";
 
 describe("List product use case integration test", () => {
   let sequelize: Sequelize;
