@@ -27,11 +27,11 @@ describe("Find customer use case integration test", () => {
   });
 
   it("should find a customer", async () => {
+    const customerRepository = new CustomerRepository();
     const customer = CustomerFactory.createWithAddressAndActive(
       "John",
       new Address("Street name", 1, "zipcode", "City name")
     );
-    const customerRepository = new CustomerRepository();
     await customerRepository.create(customer);
     const input = { id: customer.id };
     const output = {
@@ -49,5 +49,15 @@ describe("Find customer use case integration test", () => {
     const outputResponse = await findCustomerUseCase.execute(input);
 
     expect(outputResponse).toEqual(output);
+  });
+
+  it("should not find a customer", async () => {
+    expect(async () => {
+      const customerRepository = new CustomerRepository();
+      const findCustomerUseCase = new FindCustomerUseCase(customerRepository);
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const response = await findCustomerUseCase.execute({ id: "123" });
+    }).rejects.toThrow("Customer not found");
   });
 });

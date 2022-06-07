@@ -1,5 +1,3 @@
-import { ExclusionConstraintError } from "sequelize/types";
-
 import { CustomerFactory } from "../../../domain/customer/factory/customer.factory";
 import { Address } from "../../../domain/customer/value_object/address";
 import { FindCustomerUseCase } from "./find.customer.usecase";
@@ -47,6 +45,7 @@ describe("Find customer use case unit test", () => {
 
     expect(async () => {
       const findCustomerUseCase = new FindCustomerUseCase(customerRepository);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const response = await findCustomerUseCase.execute({ id: "123" });
     }).rejects.toThrow("Customer not found");
   });
