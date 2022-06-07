@@ -1,7 +1,8 @@
 import { RepositoryInterface } from "../../@shared/repository/repository.interface";
-import { Product } from "../entity/product";
+import { ProductInterface } from "../entity/product.interface";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface ProductRepositoryInterface extends RepositoryInterface<Product> {}
+interface ProductRepositoryInterface
+  extends RepositoryInterface<ProductInterface> {}
 
 export { ProductRepositoryInterface };

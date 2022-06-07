@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Sequelize } from "sequelize-typescript";
 
 import { ProductModel } from "../../../infrastructure/product/db/sequelize/product.model";
 import { ProductRepository } from "../../../infrastructure/product/repository/sequelize/product.repository";
+import { CreateProductUseCase } from "./create.product.usecase";
 
 const input = {
   name: "Product name",
@@ -59,6 +61,17 @@ describe("Create product use case integration test", () => {
       input.name = "Product name";
       input.price = null;
       const response = await createProductUseCase.execute(input);
-    }).rejects.toThrow("Price is required.");
+    }).rejects.toThrow("Price must be greater than zero.");
+  });
+
+  it("should throw an error when price is lower than zero", async () => {
+    expect(async () => {
+      const productRepository = new ProductRepository();
+
+      const createProductUseCase = new CreateProductUseCase(productRepository);
+      input.name = "Product name";
+      input.price = -2;
+      const response = await createProductUseCase.execute(input);
+    }).rejects.toThrow("Price must be greater than zero.");
   });
 });

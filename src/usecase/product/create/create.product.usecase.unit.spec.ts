@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { CreateProductUseCase } from "./create.product.usecase";
+
 const input = {
   name: "Product name",
-  price: 10.0,
+  price: 10,
 };
 
 const productMockRepository = () => {
@@ -45,6 +47,17 @@ describe("Create product use case unit test", () => {
       input.name = "Product name";
       input.price = null;
       const response = await createProductUseCase.execute(input);
-    }).rejects.toThrow("Price is required.");
+    }).rejects.toThrow("Price must be greater than zero.");
+  });
+
+  it("should throw an error when price is lower than zero", async () => {
+    expect(async () => {
+      const productRepository = productMockRepository();
+
+      const createProductUseCase = new CreateProductUseCase(productRepository);
+      input.name = "Product name";
+      input.price = -2;
+      const response = await createProductUseCase.execute(input);
+    }).rejects.toThrow("Price must be greater than zero.");
   });
 });
