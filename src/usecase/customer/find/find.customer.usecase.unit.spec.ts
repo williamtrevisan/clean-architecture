@@ -1,3 +1,5 @@
+import { ExclusionConstraintError } from "sequelize/types";
+
 import { CustomerFactory } from "../../../domain/customer/factory/customer.factory";
 import { Address } from "../../../domain/customer/value_object/address";
 import { FindCustomerUseCase } from "./find.customer.usecase";
@@ -35,5 +37,17 @@ describe("Find customer use case unit test", () => {
     const outputResponse = await findCustomerUseCase.execute(input);
 
     expect(outputResponse).toEqual(output);
+  });
+
+  it("should not find a customer", async () => {
+    const customerRepository = customerMockRepository();
+    customerRepository.find.mockImplementation(() => {
+      throw new Error("Customer not found");
+    });
+
+    expect(async () => {
+      const findCustomerUseCase = new FindCustomerUseCase(customerRepository);
+      const response = await findCustomerUseCase.execute({ id: "123" });
+    }).rejects.toThrow("Customer not found");
   });
 });
