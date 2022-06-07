@@ -34,9 +34,9 @@ describe("Create product use case integration test", () => {
     const productRepository = new ProductRepository();
 
     const createProductUseCase = new CreateProductUseCase(productRepository);
-    const response = await createProductUseCase.execute(input);
+    const outputResponse = await createProductUseCase.execute(input);
 
-    expect(response).toEqual({
+    expect(outputResponse).toEqual({
       id: expect.any(String),
       name: input.name,
       price: input.price,
@@ -49,7 +49,7 @@ describe("Create product use case integration test", () => {
 
       const createProductUseCase = new CreateProductUseCase(productRepository);
       input.name = "";
-      const response = await createProductUseCase.execute(input);
+      const outputResponse = await createProductUseCase.execute(input);
     }).rejects.toThrow("Name is required.");
   });
 
@@ -60,7 +60,7 @@ describe("Create product use case integration test", () => {
       const createProductUseCase = new CreateProductUseCase(productRepository);
       input.name = "Product name";
       input.price = null;
-      const response = await createProductUseCase.execute(input);
+      const outputResponse = await createProductUseCase.execute(input);
     }).rejects.toThrow("Price must be greater than zero.");
   });
 
@@ -71,7 +71,7 @@ describe("Create product use case integration test", () => {
       const createProductUseCase = new CreateProductUseCase(productRepository);
       input.name = "Product name";
       input.price = -2;
-      const response = await createProductUseCase.execute(input);
+      const outputResponse = await createProductUseCase.execute(input);
     }).rejects.toThrow("Price must be greater than zero.");
   });
 });
