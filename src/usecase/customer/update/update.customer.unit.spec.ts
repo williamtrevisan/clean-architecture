@@ -1,5 +1,6 @@
 import { CustomerFactory } from "../../../domain/customer/factory/customer.factory";
 import { Address } from "../../../domain/customer/value_object/address";
+import { UpdateCustomerUseCase } from "./update.customer.usecase";
 
 const customer = CustomerFactory.createWithAddressAndActive(
   "John",
@@ -17,7 +18,7 @@ const input = {
   },
 };
 
-const customerRepository = () => {
+const customerMockRepository = () => {
   return {
     create: jest.fn(),
     update: jest.fn(),
@@ -28,6 +29,8 @@ const customerRepository = () => {
 
 describe("Update customer use case unit test", () => {
   it("should update a customer", async () => {
+    const customerRepository = customerMockRepository();
+
     const updateCustomerUseCase = new UpdateCustomerUseCase(customerRepository);
     const output = await updateCustomerUseCase.execute(input);
 
