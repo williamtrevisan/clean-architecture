@@ -1,11 +1,11 @@
-interface InputCreateProductDTO {
+interface InputFindProductDTO {
   id: string;
 }
 
-interface OutputCreateProductDTO {
+interface OutputFindProductDTO {
   id: string;
   name: string;
   price: number;
 }
 
-export { InputCreateProductDTO, OutputCreateProductDTO };
+export { InputFindProductDTO, OutputFindProductDTO };

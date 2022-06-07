@@ -27,8 +27,16 @@ class ProductRepository implements ProductRepositoryInterface {
   }
 
   async find(id: string): Promise<ProductInterface> {
-    const productModel = await ProductModel.findOne({ where: { id } });
-    if (!productModel) throw new Error("Product not found.");
+    let productModel;
+
+    try {
+      productModel = await ProductModel.findOne({
+        where: { id },
+        rejectOnEmpty: true,
+      });
+    } catch (error) {
+      throw new Error("Product not found.");
+    }
 
     return new Product(productModel.id, productModel.name, productModel.price);
   }
