@@ -285,7 +285,7 @@ describe("Order repository test", () => {
     const customerRepository = new CustomerRepository();
     const customer1 = new Customer("customerId1", "Customer name 1");
     const address1 = new Address("Street1", 1, "postalCode1", "City name 1");
-    customer1.address = address1;
+    customer1.changeAddress(address1);
     customer1.activate();
     await customerRepository.create(customer1);
 

@@ -48,7 +48,7 @@ describe("Create customer use case unit test", () => {
       input.name = "";
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const outputResponse = await createCustomerUseCase.execute(input);
-    }).rejects.toThrow("Name is required.");
+    }).rejects.toThrow("customer: Name is required");
   });
 
   it("should throw an error when street is missing", async () => {

@@ -26,6 +26,10 @@ class Customer extends Entity {
     this._name = name;
 
     this.validate();
+
+    if (this.notification.hasErrors()) {
+      throw new NotificationError(this.notification.getErrors());
+    }
   }
 
   changeAddress(address: Address) {
@@ -52,16 +56,8 @@ class Customer extends Entity {
     return this._active;
   }
 
-  get id(): string {
-    return this._id;
-  }
-
   get name(): string {
     return this._name;
-  }
-
-  set address(address: Address) {
-    this._address = address;
   }
 
   get address(): Address {
@@ -76,14 +72,14 @@ class Customer extends Entity {
     if (!this._id) {
       this.notification.addError({
         context: "customer",
-        message: "Id is required.",
+        message: "Id is required",
       });
     }
 
     if (!this._name) {
       this.notification.addError({
         context: "customer",
-        message: "Name is required.",
+        message: "Name is required",
       });
     }
   }
