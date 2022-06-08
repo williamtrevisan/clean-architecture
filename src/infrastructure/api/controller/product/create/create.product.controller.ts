@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { CreateProductUseCase } from "../../../../../usecase/product/create/create.product.usecase";
 import { ProductRepository } from "../../../../product/repository/sequelize/product.repository";
 
-class CreateCustomerController {
+class CreateProductController {
   async handle(request: Request, response: Response): Promise<Response> {
     try {
       const { name, price } = request.body;
@@ -24,4 +24,4 @@ class CreateCustomerController {
   }
 }
 
-export { CreateCustomerController };
+export { CreateProductController };
