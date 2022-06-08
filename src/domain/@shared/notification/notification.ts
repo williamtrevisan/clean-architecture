@@ -23,6 +23,10 @@ class Notification {
   hasErrors(): boolean {
     return this.errors.length > 0;
   }
+
+  getErrors(): NotificationErrorProps[] {
+    return this.errors;
+  }
 }
 
 export { NotificationErrorProps, Notification };
