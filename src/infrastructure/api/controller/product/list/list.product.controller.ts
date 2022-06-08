@@ -5,17 +5,11 @@ import { ProductRepository } from "../../../../product/repository/sequelize/prod
 
 class ListProductController {
   async handle(request: Request, response: Response): Promise<Response> {
-    try {
-      const listProductUseCase = new ListProductUseCase(
-        new ProductRepository()
-      );
+    const listProductUseCase = new ListProductUseCase(new ProductRepository());
 
-      const products = await listProductUseCase.execute({});
+    const products = await listProductUseCase.execute({});
 
-      return response.status(200).send(products);
-    } catch (error) {
-      return response.status(500).send(error);
-    }
+    return response.status(200).send(products);
   }
 }
 

@@ -49,4 +49,35 @@ describe("List customer controller e2e test", () => {
       customer2.address.street
     );
   });
+
+  it("should list all customer and receive a xml response", async () => {
+    const customer1 = {
+      name: "Customer name 1",
+      address: {
+        street: "Street name 1",
+        number: 1,
+        zip: "97500-000",
+        city: "City name 1",
+      },
+    };
+    const customer2 = {
+      name: "Customer name 2",
+      address: {
+        street: "Street name 2",
+        number: 1,
+        zip: "97500-000",
+        city: "City name 2",
+      },
+    };
+    await request(app).post("/customers").send(customer1);
+    await request(app).post("/customers").send(customer2);
+
+    const response = await request(app)
+      .get("/customers")
+      .set("Accept", "application/xml")
+      .send();
+
+    expect(response.status).toBe(200);
+    expect(response.text).toContain('<?xml version="1.0" encoding="UTF-8"?>');
+  });
 });
