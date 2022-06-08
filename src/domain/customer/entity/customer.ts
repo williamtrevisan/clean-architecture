@@ -16,20 +16,12 @@ class Customer extends Entity {
     this._name = name;
 
     this.validate();
-
-    if (this.notification.hasErrors()) {
-      throw new NotificationError(this.notification.getErrors());
-    }
   }
 
   changeName(name: string): void {
     this._name = name;
 
     this.validate();
-
-    if (this.notification.hasErrors()) {
-      throw new NotificationError(this.notification.getErrors());
-    }
   }
 
   changeAddress(address: Address) {
@@ -81,6 +73,10 @@ class Customer extends Entity {
         context: "customer",
         message: "Name is required",
       });
+    }
+
+    if (this.notification.hasErrors()) {
+      throw new NotificationError(this.notification.getErrors());
     }
   }
 }

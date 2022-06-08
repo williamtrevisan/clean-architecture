@@ -36,7 +36,7 @@ describe("Create product use case unit test", () => {
       const createProductUseCase = new CreateProductUseCase(productRepository);
       input.name = "";
       const outputResponse = await createProductUseCase.execute(input);
-    }).rejects.toThrow("Name is required.");
+    }).rejects.toThrow("product: Name is required");
   });
 
   it("should throw an error when price is missing", async () => {
@@ -47,7 +47,7 @@ describe("Create product use case unit test", () => {
       input.name = "Product name";
       input.price = null;
       const outputResponse = await createProductUseCase.execute(input);
-    }).rejects.toThrow("Price must be greater than zero.");
+    }).rejects.toThrow("product: Price must be greater than zero");
   });
 
   it("should throw an error when price is lower than zero", async () => {
@@ -58,6 +58,6 @@ describe("Create product use case unit test", () => {
       input.name = "Product name";
       input.price = -2;
       const outputResponse = await createProductUseCase.execute(input);
-    }).rejects.toThrow("Price must be greater than zero.");
+    }).rejects.toThrow("product: Price must be greater than zero");
   });
 });
